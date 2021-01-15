@@ -1,25 +1,35 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.1'
+        // classpath 'com.android.tools.build:gradle:1.3.1'
+        classpath 'com.android.tools.build:gradle:3.4.1'
     }
 }
 
 apply plugin: 'com.android.library'
+//***
+apply plugin: 'maven'
+
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        //***
+         ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+        }
+        //***
     }
     lintOptions {
         abortOnError false
@@ -28,9 +38,22 @@ android {
 
 repositories {
     mavenCentral()
+    //***
+     maven {
+        url 'http://nexus.diamondfortress.com/nexus/content/repositories/releases/'
+    }
+
+    maven {
+        url 'http://nexus.diamondfortress.com/nexus/content/repositories/snapshots/'
+    }
+     google()
+    jcenter()
 }
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
+    //***
+     api 'com.google.android.gms:play-services-base:17.4.0'
+    api 'com.dft.android:onyx-camera:6.11.11'
 }
   
