@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    implementation 'com.facebook.react:react-native:+'
     //***
      api 'com.google.android.gms:play-services-base:17.4.0'
     api 'com.dft.android:onyx-camera:6.11.11'

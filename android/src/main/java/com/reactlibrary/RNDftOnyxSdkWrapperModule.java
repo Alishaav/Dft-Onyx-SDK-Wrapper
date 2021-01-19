@@ -1,6 +1,9 @@
 
 package com.reactlibrary;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -31,6 +34,16 @@ public class RNDftOnyxSdkWrapperModule extends ReactContextBaseJavaModule {
             successCallback.invoke("Callback : Greetings from Java");
         } catch (IllegalViewOperationException e) {
             errorCallback.invoke(e.getMessage());
+        }
+    }
+
+
+ @ReactMethod
+    void navigateToOnyx() {
+        Activity activity = getCurrentActivity();
+        if (activity != null) {
+            Intent intent = new Intent(activity, OnyxSetupActivity.class);
+            activity.startActivity(intent);
         }
     }
   //*** */
