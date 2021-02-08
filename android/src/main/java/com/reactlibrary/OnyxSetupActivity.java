@@ -115,7 +115,7 @@ public class OnyxSetupActivity extends Activity implements ProviderInstaller.Pro
         // Create an OnyxConfigurationBuilder and configure it with desired options
         OnyxConfigurationBuilder onyxConfigurationBuilder = new OnyxConfigurationBuilder()
                 .setActivity(activity)
-                .setLicenseKey(getResources().getString(R.string.onyx_license))
+                .setLicenseKey("3969-9138-6246-1-2")
                 .setReturnRawImage(valuesUtil.getReturnRawImage(this))
                 .setReturnProcessedImage(valuesUtil.getReturnProcessedImage(this))
                 .setReturnEnhancedImage(valuesUtil.getReturnEnhancedImage(this))

@@ -48,7 +48,7 @@ public class MainApplication extends Application {
         return activityForRunningOnyx;
     }
 
-    public void setConfiguredOnyx(Onyx configuredOnyx) {
+    public static void setConfiguredOnyx(Onyx configuredOnyx) {
         MainApplication.configuredOnyx = configuredOnyx;
     }
 
