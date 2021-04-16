@@ -1,51 +1,23 @@
 {
-  "_from": "react-native-dft-onyx-sdk-wrapper@^1.0.4",
-  "_id": "react-native-dft-onyx-sdk-wrapper@1.0.4",
-  "_inBundle": false,
-  "_integrity": "sha512-GVdxUvUAA0wr4bIbhOBCP4xhyQSMoYMM6asVVvA8USzyn/1NO7wYBk7lQ/CuoYt+t3SWr0TbqwgKtEgAFJuB7g==",
-  "_location": "/react-native-dft-onyx-sdk-wrapper",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "react-native-dft-onyx-sdk-wrapper@^1.0.4",
-    "name": "react-native-dft-onyx-sdk-wrapper",
-    "escapedName": "react-native-dft-onyx-sdk-wrapper",
-    "rawSpec": "^1.0.4",
-    "saveSpec": null,
-    "fetchSpec": "^1.0.4"
-  },
-  "_requiredBy": [
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/react-native-dft-onyx-sdk-wrapper/-/react-native-dft-onyx-sdk-wrapper-1.0.4.tgz",
-  "_shasum": "acda651d70017c6d7f9b31a422ca2790262e0642",
-  "_spec": "react-native-dft-onyx-sdk-wrapper@^1.0.4",
-  "_where": "/Users/alisha/hybrid.research.development/TrialApp",
-  "author": "",
-  "bugs": {
-    "url": "https://github.com/Alishaav/Dft-Onyx-SDK-Wrapper/issues"
-  },
-  "bundleDependencies": false,
-  "deprecated": false,
-  "description": "## Getting started",
-  "homepage": "https://github.com/Alishaav/Dft-Onyx-SDK-Wrapper#readme",
-  "keywords": [
-    "react-native"
-  ],
-  "license": "",
-  "main": "index.js",
   "name": "react-native-dft-onyx-sdk-wrapper",
-  "peerDependencies": {
-    "react-native": "^0.41.2",
-    "react-native-windows": "0.41.0-rc.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Alishaav/Dft-Onyx-SDK-Wrapper.git"
-  },
+  "version": "1.0.6",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.4"
+  "keywords": [
+    "react-native"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alishaav/Dft-Onyx-SDK-Wrapper.git"
+  },
+  "author": "",
+  "license": "",
+  "peerDependencies": {
+    "react-native": "^0.41.2",
+    "react-native-windows": "0.41.0-rc.1"
+
+  }
 }
