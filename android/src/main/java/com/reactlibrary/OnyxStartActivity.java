@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 
 
 public class OnyxStartActivity extends Activity implements ProviderInstaller.ProviderInstallListener {
-    private static final String TAG = OnyxSetupActivity.class.getName();
+//    private static final String TAG = OnyxSetupActivity.class.getName();
     private static final int ONYX_REQUEST_CODE = 1337;
     MainApplication application = new MainApplication();
     private Activity activity;
@@ -53,6 +54,7 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
     private OnyxConfiguration.ErrorCallback errorCallback;
     private OnyxConfiguration.OnyxCallback onyxCallback;
     FileUtil fileUtil;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,16 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
         pbLoader = findViewById(R.id.progressBar2);
 
         setupCallbacks();
+
+        setupOnyx();
+        if(activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED){
+//            MainApplication.setOnyxResult(null);
+//            startActivityForResult(new Intent(activity, OnyxActivity.class), ONYX_REQUEST_CODE);
+        }
+        else{
+            fileUtil.getWriteExternalStoragePermission(this);
+        }
     }
 
     private void setupCallbacks() {
@@ -81,18 +93,20 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
                 application.setOnyxResult(onyxResult);
                 finishActivityForRunningOnyx();
                 ArrayList<String> base64Image=new ArrayList<>();
-                for (int image=0;image<onyxResult.getProcessedFingerprintImages().size();image++){
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    Bitmap bitmap=onyxResult.getProcessedFingerprintImages().get(image);
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                    byte[] byteArray = byteArrayOutputStream .toByteArray();
-                    String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+//                for (int image=0;image<onyxResult.getProcessedFingerprintImages().size();image++){
+//                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                    Bitmap bitmap=onyxResult.getProcessedFingerprintImages().get(image);
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+//                    byte[] byteArray = byteArrayOutputStream .toByteArray();
+//                    String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+//                    base64Image.add(encoded);
+//                }
+
+                for (int image=0;image<onyxResult.getWsqData().size();image++){
+                    String encoded = Base64.encodeToString(onyxResult.getWsqData().get(image), Base64.DEFAULT);
                     base64Image.add(encoded);
                 }
-                //Intent i = new Intent();
-                //Log.e("test","success");
-                //i.putExtra("test","ok");
-                //setResult(RESULT_OK,i);
+
                 RNDftOnyxSdkWrapperModule.getResData(base64Image);
                 finish();
             }
@@ -102,8 +116,10 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
             @Override
             public void onError(OnyxError onyxError) {
                 Log.e("OnyxError", onyxError.getErrorMessage());
+//                Log.e("onyxError.errorMessage", onyxError.errorMessage);
                 application.setOnyxError(onyxError);
-                showAlertDialog(onyxError);
+                Toast.makeText(activity, onyxError.errorMessage, Toast.LENGTH_SHORT).show();
+//                showAlertDialog(onyxError);
                 finishActivityForRunningOnyx();
             }
         };
@@ -120,6 +136,7 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
                         pbLoader.setVisibility(View.GONE);
                         MainApplication.setOnyxResult(null);
                         startActivityForResult(new Intent(activity, OnyxActivity.class), ONYX_REQUEST_CODE);
+                        finish();
                     }
                 });
             }
@@ -128,7 +145,6 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
 
     private void finishActivityForRunningOnyx() {
         if (MainApplication.getActivityForRunningOnyx() != null) {
-
             MainApplication.getActivityForRunningOnyx().finish();
             Log.d("RunningOnyx", "rRunningOnyx"  );
 
@@ -144,30 +160,32 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
                 .setReturnProcessedImage(valuesUtil.getReturnProcessedImage(this))
                 .setReturnEnhancedImage(valuesUtil.getReturnEnhancedImage(this))
                 .setReturnWSQ(valuesUtil.getReturnWSQ(this))
-                .setReturnFingerprintTemplate(valuesUtil.getReturnFingerprintTemplate(this))
-                .setThresholdProcessedImage(valuesUtil.getThresholdImage(this))
+                .setReturnFingerprintTemplate(
+                        valuesUtil.getReturnFingerprintTemplate(this)
+                )
+                // .setThresholdProcessedImage(valuesUtil.getThresholdImage(this))
                 .setShowLoadingSpinner(valuesUtil.getShowLoadingSpinner(this))
                 .setUseOnyxLive(valuesUtil.getUseOnyxLive(this))
-                .setComputeNfiqMetrics(valuesUtil.getComputeNfiqMetrics(this))
+                // .setComputeNfiqMetrics(valuesUtil.getComputeNfiqMetrics(this))
                 .setUseFlash(valuesUtil.getUseFlash(this))
                 .setImageRotation(valuesUtil.getImageRotation(this))
                 .setReticleOrientation(valuesUtil.getReticleOrientation(this))
                 .setCropSize(valuesUtil.getCropSizeWidth(this), valuesUtil.getCropSizeHeight(this))
                 .setCropFactor(valuesUtil.getCropFactor(this))
-                .setTargetPixelsPerInch(valuesUtil.getTargetPixelsPerInch(this))
-                .setUseFourFingerReticle(true, false)
-                .setUseRightHandLayout(valuesUtil.getUseRightHandLayout(this))
-                .setLayoutPreference(OnyxConfiguration.LayoutPreference.FULL)
+                // .setTargetPixelsPerInch(valuesUtil.getTargetPixelsPerInch(this))
+                // .setUseFourFingerReticle(true, false)
+                // .setUseRightHandLayout(valuesUtil.getUseRightHandLayout(this))
+                // .setLayoutPreference(OnyxConfiguration.LayoutPreference.FULL)
                 .setSuccessCallback(successCallback)
                 .setErrorCallback(errorCallback)
                 .setOnyxCallback(onyxCallback);
         // Reticle Angle overrides Reticle Orientation so have to set this separately
-        if (valuesUtil.getReticleAngle(this) != null) {
-            onyxConfigurationBuilder.setReticleAngle(valuesUtil.getReticleAngle(this));
-        }
-        if (valuesUtil.getUseManualCapture(this)) {
-            onyxConfigurationBuilder.setUseManualCapture(true);
-        }
+        // if (valuesUtil.getReticleAngle(this) != null) {
+        //     onyxConfigurationBuilder.setReticleAngle(valuesUtil.getReticleAngle(this));
+        // }
+        // if (valuesUtil.getUseManualCapture(this)) {
+        //     onyxConfigurationBuilder.setUseManualCapture(true);
+        // }
         // Finally, build the OnyxConfiguration
         onyxConfigurationBuilder.buildOnyxConfiguration();
     }
@@ -179,21 +197,9 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
     @Override
     public void onResume() {
         super.onResume();
-        if (MainApplication.getOnyxResult() != null) {
-            Log.d("onsuccess", MainApplication.getOnyxResult().toString()  );
-//            displayResults(MainApplication.getOnyxResult());
-        } else{
-            setupOnyx();
-
-        }
-        if(activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED){
-//            MainApplication.setOnyxResult(null);
-//            startActivityForResult(new Intent(activity, OnyxActivity.class), ONYX_REQUEST_CODE);
-        }
-        else{
-            fileUtil.getWriteExternalStoragePermission(this);
-        }
+//        if (MainApplication.getOnyxResult() != null) {
+//            Log.d("onsuccess", MainApplication.getOnyxResult().toString()  );
+//        }
     }
 
     @Override
@@ -207,23 +213,14 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
         }
     }
 
-    private void displayResults(OnyxResult onyxResult) {
-        startActivity(new Intent(this, OnyxImageryActivity.class));
-        if (onyxResult.getMetrics() != null) {
-            livenessResultTextView.setText(Double.toString(onyxResult.getMetrics().getLivenessConfidence()));
-            //nfiqScoreTextView.setText(Integer.toString(onyxResult.getMetrics().getNfiqMetrics().getNfiqScore()));
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            Log.v(TAG,"Permission: "+permissions[0]+ " was " + grantResults[0]);
+//            Log.v(TAG,"Permission: "+permissions[0]+ " was " + grantResults[0]);
             pbLoader.setVisibility(View.VISIBLE);
             pbLoader.bringToFront();
-//            MainApplication.setOnyxResult(null);
-//            startActivityForResult(new Intent(activity, OnyxActivity.class), ONYX_REQUEST_CODE);
         }
     }
 

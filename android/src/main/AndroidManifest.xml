@@ -5,9 +5,6 @@
  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
      <application
         >
-        <activity android:name="com.reactlibrary.OnyxSetupActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
-        </activity>
          <activity android:name="com.reactlibrary.OnyxStartActivity"
              android:theme="@android:style/Theme.NoTitleBar" >
          </activity>
@@ -15,14 +12,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             tools:ignore="WrongManifestParent" />
-        <activity android:name="com.reactlibrary.OnyxImageryActivity"
-            android:theme="@android:style/Theme.NoTitleBar" />
-
-         <activity android:name="com.reactlibrary.TestActivity"/>
-
-
      </application>
-
-
 </manifest>
   

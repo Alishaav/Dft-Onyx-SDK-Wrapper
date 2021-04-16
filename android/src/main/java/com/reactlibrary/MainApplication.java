@@ -12,14 +12,6 @@ import com.dft.onyxcamera.config.OnyxResult;
 
 import org.opencv.android.OpenCVLoader;
 
-// *from*
-//import com.facebook.react.ReactApplication;
-//import com.facebook.react.ReactNativeHost;
-//import com.facebook.react.ReactPackage;
-//import com.facebook.react.shell.MainReactPackage;
-//import com.facebook.soloader.SoLoader;
-// *to*
-
 /**
  * Main application to hold Onyx objects
  */

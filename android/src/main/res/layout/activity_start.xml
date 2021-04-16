@@ -106,7 +106,9 @@
         app:layout_constraintBaseline_toBaselineOf="@id/cropSize"
         app:layout_constraintLeft_toRightOf="@+id/cropSize"
         app:layout_constraintStart_toEndOf="@+id/cropSize"
-        tools:text="width" />
+        tools:text="width"
+        android:layout_marginLeft="12dp"
+        android:gravity="center_horizontal" />
 
     <EditText
         android:visibility="gone"
@@ -122,7 +124,9 @@
         app:layout_constraintBaseline_toBaselineOf="@id/cropSize"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintLeft_toRightOf="@+id/widthEditText"
-        tools:text="height" />
+        tools:text="height"
+        android:layout_marginRight="4dp"
+        android:gravity="center_horizontal" />
 
     <CheckBox
         android:visibility="gone"
@@ -146,7 +150,8 @@
         android:text="1.0"
         android:textAlignment="center"
         app:layout_constraintBaseline_toBaselineOf="@id/cropFactor"
-        app:layout_constraintLeft_toRightOf="@+id/cropFactor" />
+        app:layout_constraintLeft_toRightOf="@+id/cropFactor"
+        android:gravity="center_horizontal" />
 
     <CheckBox
         android:visibility="gone"
@@ -170,7 +175,8 @@
         android:text="500.0"
         android:textAlignment="center"
         app:layout_constraintBaseline_toBaselineOf="@+id/targetPixelsPerInch"
-        app:layout_constraintLeft_toRightOf="@+id/targetPixelsPerInch" />
+        app:layout_constraintLeft_toRightOf="@+id/targetPixelsPerInch"
+        android:gravity="center_horizontal" />
 
     <CheckBox
         android:visibility="gone"
@@ -192,7 +198,8 @@
         android:text="Right hand layout"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toEndOf="@+id/layoutPreferenceFullScreen"
-        app:layout_constraintTop_toBottomOf="@+id/targetPixelsPerInch" />
+        app:layout_constraintTop_toBottomOf="@+id/targetPixelsPerInch"
+        android:layout_marginLeft="20dp" />
 
     <CheckBox
         android:visibility="gone"
@@ -380,7 +387,8 @@
         android:textAlignment="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="Start Onyx" />
+        tools:text="Start Onyx"
+        android:gravity="center_horizontal" />
 
     <ProgressBar
         android:id="@+id/progressBar2"

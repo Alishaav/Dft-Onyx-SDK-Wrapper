@@ -3,10 +3,6 @@ package com.reactlibrary;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.dft.onyxcamera.config.Onyx;
 
@@ -23,8 +19,6 @@ public class OnyxActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    //trial asw
-    ValuesUtil valuesUtil = new ValuesUtil();
 
     @Override
     public void onResume() {
