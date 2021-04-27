@@ -93,15 +93,6 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
                 application.setOnyxResult(onyxResult);
                 finishActivityForRunningOnyx();
                 ArrayList<String> base64Image=new ArrayList<>();
-//                for (int image=0;image<onyxResult.getProcessedFingerprintImages().size();image++){
-//                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//                    Bitmap bitmap=onyxResult.getProcessedFingerprintImages().get(image);
-//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-//                    byte[] byteArray = byteArrayOutputStream .toByteArray();
-//                    String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-//                    base64Image.add(encoded);
-//                }
-
                 for (int image=0;image<onyxResult.getWsqData().size();image++){
                     String encoded = Base64.encodeToString(onyxResult.getWsqData().get(image), Base64.DEFAULT);
                     base64Image.add(encoded);
@@ -116,11 +107,17 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
             @Override
             public void onError(OnyxError onyxError) {
                 Log.e("OnyxError", onyxError.getErrorMessage());
-//                Log.e("onyxError.errorMessage", onyxError.errorMessage);
+                if(onyxError.errorMessage.equalsIgnoreCase("Attempt to invoke virtual method 'int java.util.ArrayList.size()' on a null object reference")){
+                    Toast.makeText(activity, "Failed to capture", Toast.LENGTH_SHORT).show();
+                }else {
+                    Log.e("onyxError.errorMessage", onyxError.errorMessage);
+                    Toast.makeText(activity, onyxError.errorMessage, Toast.LENGTH_SHORT).show();
+                }
                 application.setOnyxError(onyxError);
-                Toast.makeText(activity, onyxError.errorMessage, Toast.LENGTH_SHORT).show();
+
 //                showAlertDialog(onyxError);
                 finishActivityForRunningOnyx();
+                finish();
             }
         };
 
@@ -221,6 +218,11 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
 //            Log.v(TAG,"Permission: "+permissions[0]+ " was " + grantResults[0]);
             pbLoader.setVisibility(View.VISIBLE);
             pbLoader.bringToFront();
+            setupOnyx();
+        }
+        else{
+            Log.d("close package","close package");
+            finish();
         }
     }
 
