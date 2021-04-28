@@ -23,16 +23,16 @@ public class FileUtil {
     /**
      * Method to check if external storage has write permission
      */
-    public boolean getWriteExternalStoragePermission(Activity activity) {
+    public boolean getCameraPermission(Activity activity) {
         boolean hasPermission;
         if (Build.VERSION.SDK_INT >= 23) {
-            if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (activity.checkSelfPermission(Manifest.permission.CAMERA)
                     == PackageManager.PERMISSION_GRANTED) {
                 Log.v(TAG,"Permission is granted");
                 hasPermission = true;
             } else {
                 Log.v(TAG,"Permission is revoked");
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA}, 1);
                 hasPermission = false;
             }
         }

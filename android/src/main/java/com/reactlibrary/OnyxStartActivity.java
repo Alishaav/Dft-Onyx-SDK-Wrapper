@@ -1,5 +1,6 @@
 package com.reactlibrary;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -74,14 +75,15 @@ public class OnyxStartActivity extends Activity implements ProviderInstaller.Pro
 
         setupCallbacks();
 
-        setupOnyx();
-        if(activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//        setupOnyx();
+        if(activity.checkSelfPermission(Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED){
+            setupOnyx();
 //            MainApplication.setOnyxResult(null);
 //            startActivityForResult(new Intent(activity, OnyxActivity.class), ONYX_REQUEST_CODE);
         }
         else{
-            fileUtil.getWriteExternalStoragePermission(this);
+            fileUtil.getCameraPermission(this);
         }
     }
 
